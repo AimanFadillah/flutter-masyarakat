@@ -21,35 +21,35 @@ class Show extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Nama :"),
+                const Text("Nama :"),
                 Text("${masyarakatController.data[index].nama}"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Username :"),
+                const Text("Username :"),
                 Text("${masyarakatController.data[index].username}"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Nik :"),
+                const Text("Nik :"),
                 Text("${masyarakatController.data[index].nik}"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Telepon :"),
+                const Text("Telepon :"),
                 Text("${masyarakatController.data[index].telp}"),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("CreatedAt :"),
+                const Text("CreatedAt :"),
                 Text("${masyarakatController.data[index].createdAt}"),
               ],
             ),
@@ -64,7 +64,6 @@ class Show extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   masyarakatController.destroyData(masyarakatController.data[index].nik);
-                  // if(masyarakatController.pesan.value == '{}')
                   Get.toNamed("/");
                 },
                 child:const Text("Hapus")

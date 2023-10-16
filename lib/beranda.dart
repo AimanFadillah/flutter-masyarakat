@@ -32,7 +32,7 @@ class Beranda extends StatelessWidget {
                     color: Colors.green,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child: const Text("Buat Pengaduan",
+                  child: const Text("Buat Masyarakat",
                     style: TextStyle(fontSize: 16,color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
