@@ -64,7 +64,7 @@ class Show extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   masyarakatController.destroyData(masyarakatController.data[index].nik);
-                  Get.toNamed("/");
+                  Get.toNamed("/beranda");
                 },
                 child:const Text("Hapus")
             ),

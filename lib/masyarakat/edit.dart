@@ -43,7 +43,7 @@ class Edit extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   masyarakatController.updateData(masyarakatController.data[index].nik,nama.text,username.text,telp.text);
-                  Get.toNamed("/");
+                  Get.toNamed("/beranda");
                 },
                 child:const Text("Update"),
               ),

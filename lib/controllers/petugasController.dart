@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:get/get.dart';
-import 'package:masyarakat/models/Pesan.dart';
-import 'package:masyarakat/models/masyarakat.dart';
 import 'package:http/http.dart' as fetch ;
+import 'package:masyarakat/models/Pesan.dart';
+import 'package:masyarakat/models/petugas.dart';
 
-class MasyarakatController extends GetxController {
+class PetugasController extends GetxController {
 
   RxBool loading = RxBool(false);
-  RxList<Masyarakat> data = RxList<Masyarakat>([]);
-  RxString msg = RxString("");
+  RxList<Petugas> data = RxList<Petugas>([]);
 
   @override
   void onInit() {
@@ -20,12 +19,12 @@ class MasyarakatController extends GetxController {
     try{
       data.value = [];
       loading.value = true;
-      var response = await fetch.get(Uri.parse("http://localhost:5000/masyarakat"));
+      var response = await fetch.get(Uri.parse("http://localhost:5000/petugas"));
       loading.value = false;
       if(response.statusCode == 200){
         final dataPengaduan = jsonDecode(response.body);
         for(Map<String,dynamic> pengaduan in dataPengaduan){
-          data.add(Masyarakat.fromJson(pengaduan));
+          data.add(Petugas.fromJson(pengaduan));
         }
       }else{
         print("Terjadi Kesalahan");
@@ -35,17 +34,17 @@ class MasyarakatController extends GetxController {
     }
   }
 
-  createData (String nik,String nama,String username,String password,String telp) async {
+  createData (String nama_petugas,String username,String password,String telp) async {
     try{
       loading.value = true;
       var response = await fetch.post(
-        Uri.parse("http://localhost:5000/masyarakat"),
+        Uri.parse("http://localhost:5000/petugas"),
         body:jsonEncode({
-          "nik":nik,
-          "nama":nama,
-          "username":username,
-          "password":password,
-          "telp":telp,
+         "nama_petugas" : nama_petugas,
+          "username" : username,
+          "password" : password,
+          "confPassword" : password,
+          "telp" : telp
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -65,15 +64,15 @@ class MasyarakatController extends GetxController {
     }
   }
 
-  updateData (nik,String nama,String username,String telp) async {
+  updateData (id,String nama_petugas,String username,String telp) async {
     try{
       loading.value = true;
       var response = await fetch.put(
-        Uri.parse("http://localhost:5000/masyarakat/${nik}"),
+        Uri.parse("http://localhost:5000/petugas/${id}"),
         body:jsonEncode({
-          "nama":nama,
-          "username":username,
-          "telp":telp,
+          "nama_petugas" : nama_petugas,
+          "username" : username,
+          "telp" : telp
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +84,8 @@ class MasyarakatController extends GetxController {
       if (response.statusCode == 201) {
         print("Data berhasil dibuat");
       } else {
-        print("Gagal membuat data. Status code: ${response.body}");
+        final hasil = Pesan.fromJson(jsonDecode(response.body));
+        return hasil.msg.toString();
       }
     }catch(e){
       print(e.toString());
@@ -96,7 +96,7 @@ class MasyarakatController extends GetxController {
     try{
       loading.value = true;
       var response = await fetch.delete(
-        Uri.parse("http://localhost:5000/masyarakat/${id}"),
+        Uri.parse("http://localhost:5000/petugas/${id}"),
       );
       loading.value = false;
 

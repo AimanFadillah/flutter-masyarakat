@@ -10,10 +10,10 @@ class Beranda extends StatelessWidget {
   Widget build(BuildContext context) {
     MasyarakatController masyarakatController = Get.put(MasyarakatController());
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("Pengaduan Masyarakat",style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.lightGreen,
+        appBar: AppBar(
+          title: const Text("Pengaduan Masyarakat",style: TextStyle(color: Colors.white),),
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: Colors.lightGreen,
       ),
       body: Container(
         padding:const EdgeInsets.all(20),
