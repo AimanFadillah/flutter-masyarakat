@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:masyarakat/controllers/pengaduanController.dart';
 
 class BuatPengaduan extends StatelessWidget {
   const BuatPengaduan({super.key});
 
   @override
   Widget build(BuildContext context) {
-    String isi_laporan = "";
-    String status = "";
-    String tgl_pengaduan = "";
-
+    Map data = {};
+    var hasil;
+    PengaduanController pengaduanController = Get.put(PengaduanController());
     return Scaffold(
       appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.white),
@@ -22,26 +23,48 @@ class BuatPengaduan extends StatelessWidget {
               decoration:const InputDecoration(
                 label:Text("Isi Laporan"),
               ),
-              onChanged: (value) => isi_laporan = value,
+              onChanged: (value) => data["isi_laporan"] = value,
             ),
             TextField(
               decoration:const InputDecoration(
                 label:Text("Status"),
               ),
-              onChanged: (value) => status = value,
+              onChanged: (value) => data["status"] = value ,
             ),
             TextField(
               decoration:const InputDecoration(
                 label:Text("Tanggal Pengaduan"),
               ),
-              onChanged: (value) => tgl_pengaduan = value,
+              onChanged: (value) => data["tgl_pengaduan"] = value,
+            ),
+            TextField(
+              decoration:const InputDecoration(
+                label:Text("Nik"),
+              ),
+              onChanged: (value) => data["nik"] = value,
+            ),
+            const SizedBox(height: 20),
+            Obx(() => !pengaduanController.web.value  ?
+              ElevatedButton(
+                onPressed: () {
+                  pengaduanController.pickImage();
+                  // masyarakatController.createData(nik.text, nama.text, username.text, password.text, telp.text);
+                  // Get.toNamed("/");
+                },
+                child:const Text("File Image"),
+              )
+              :
+              Image.memory(pengaduanController.fileWeb!,width: 300),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
-                print("${isi_laporan} ${tgl_pengaduan} ${status}");
-                // masyarakatController.createData(nik.text, nama.text, username.text, password.text, telp.text);
-                // Get.toNamed("/");
+              onPressed: () async {
+                hasil = await pengaduanController.createData(data);
+                if(hasil != "success") {
+                  Get.snackbar("Error",hasil.toString());
+                  return;
+                };
+                Get.toNamed("/pengaduan");
               },
               child:const Text("Create"),
             ),

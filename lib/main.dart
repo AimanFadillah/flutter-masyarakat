@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:masyarakat/masyarakat/beranda.dart';
 import 'package:masyarakat/masyarakat/buat.dart';
 import 'package:masyarakat/pengaduan/buat_pengaduan.dart';
+import 'package:masyarakat/pengaduan/show_pengaduan.dart';
 import 'package:masyarakat/petugas/buat_petugas.dart';
 import 'package:masyarakat/masyarakat/edit.dart';
 import 'package:masyarakat/home.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: "/edit", page: () => const Edit()),
           GetPage(name: "/beranda", page: () => const Beranda()),
           GetPage(name: "/pengaduan", page: () => const Pengaduan()),
+          GetPage(name: "/pengaduan/show", page: () => const ShowPengaduan()),
           GetPage(name: "/pengaduan/create", page: () => const BuatPengaduan()),
           GetPage(name: "/petugas", page: () => const Petugas()),
           GetPage(name: "/petugas/create", page: () => const BuatPetugas()),

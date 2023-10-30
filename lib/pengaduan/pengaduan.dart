@@ -48,7 +48,7 @@ class Pengaduan extends StatelessWidget {
                   itemBuilder: (context,i) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed("/show",arguments: {"index":i});
+                        Get.toNamed("/pengaduan/show",arguments: {"index":i});
                       },
                       child: ListTile(
                         splashColor: Colors.green,

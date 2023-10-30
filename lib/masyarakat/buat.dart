@@ -60,7 +60,7 @@ class Buat extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 hasil = await masyarakatController.createData(nik.text, nama.text, username.text, password.text, telp.text);
-                if(hasil != "null") {
+                if(hasil != "success") {
                   Get.snackbar("Error",hasil);
                   return;
                 };

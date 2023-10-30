@@ -20,15 +20,11 @@ class MasyarakatController extends GetxController {
     try{
       data.value = [];
       loading.value = true;
-      var response = await fetch.get(Uri.parse("http://localhost:5000/masyarakat"));
+      var response = await fetch.get(Uri.parse("http://localhost:5000/masyarakat")); // proses
       loading.value = false;
-      if(response.statusCode == 200){
-        final dataPengaduan = jsonDecode(response.body);
-        for(Map<String,dynamic> pengaduan in dataPengaduan){
-          data.add(Masyarakat.fromJson(pengaduan));
-        }
-      }else{
-        print("Terjadi Kesalahan");
+      final dataPengaduan = jsonDecode(response.body); // output
+      for(Map<String,dynamic> pengaduan in dataPengaduan){
+        data.add(Masyarakat.fromJson(pengaduan));
       }
     }catch(e){
       print(e.toString());
@@ -54,12 +50,9 @@ class MasyarakatController extends GetxController {
       loading.value = false;
 
       getData();
-      if (response.statusCode == 201) {
-        print("Data berhasil dibuat");
-      } else {
-        final hasil = Pesan.fromJson(jsonDecode(response.body));
-        return hasil.msg.toString();
-      }
+
+      final hasil = Pesan.fromJson(jsonDecode(response.body));
+      return hasil.msg.toString();
     }catch(e){
       print(e.toString());
     }
@@ -82,29 +75,29 @@ class MasyarakatController extends GetxController {
       loading.value = false;
 
       getData();
-      if (response.statusCode == 201) {
-        print("Data berhasil dibuat");
+      if (response.statusCode == 200) {
+        print("Data berhasil diupdate");
       } else {
-        print("Gagal membuat data. Status code: ${response.body}");
+        print("Gagal update data. Status code: ${response.body}");
       }
     }catch(e){
       print(e.toString());
     }
   }
 
-  destroyData (id) async {
+  destroyData (nik) async {
     try{
       loading.value = true;
       var response = await fetch.delete(
-        Uri.parse("http://localhost:5000/masyarakat/${id}"),
+        Uri.parse("http://localhost:5000/masyarakat/${nik}"),
       );
       loading.value = false;
 
       getData();
-      if (response.statusCode == 201) {
-        print("Data berhasil dibuat");
+      if (response.statusCode == 200) {
+        print("Data berhasil dihapus");
       } else {
-        print("Gagal membuat data. Status code: ${response.body}");
+        print("Gagal menghapus data. Status code: ${response.body}");
       }
     }catch(e){
       print(e.toString());
