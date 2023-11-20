@@ -54,6 +54,24 @@ class Home extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                Get.toNamed("/tanggapan");
+              },
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.fromLTRB(0,0,0,10),
+                decoration: const BoxDecoration(
+                  color: Colors.green,
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: const Text("Tanggapan",
+                  style: TextStyle(fontSize: 16,color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
                 Get.toNamed("/petugas");
               },
               child: Container(

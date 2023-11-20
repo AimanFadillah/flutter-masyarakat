@@ -9,9 +9,10 @@ import 'package:masyarakat/models/pengaduan.dart';
 class PengaduanController extends GetxController{
   RxBool loading = RxBool(false);
   RxList<Pengaduan> data = RxList<Pengaduan>([]);
-  RxBool web = RxBool(false);
   PlatformFile? imagePicked;
-  Uint8List ? fileWeb;
+  RxMap fileWeb = RxMap({
+    "file" : ""
+  });
 
   @override
   void onInit() {
@@ -40,7 +41,7 @@ class PengaduanController extends GetxController{
 
   createData (Map data) async {
     if(data["status"] != "0" && data["status"] != "proses" && data["status"] != "selesai") return "Status antara proses,selesai atau 0";
-    if(!web.value) return "tidak ada gambar";
+    if(fileWeb["file"] == "") return "tidak ada gambar";
 
     final url = Uri.parse('http://localhost:5000/pengaduan');
     var request = fetch.MultipartRequest('POST', url);
@@ -60,7 +61,34 @@ class PengaduanController extends GetxController{
     final responseBody = await response.stream.bytesToString();
     print(responseBody);
     getData();
-    web.value = false;
+    fileWeb["file"] = "";
+    return "success";
+  }
+
+  updateData (Map data,id) async {
+    if(data["status"] != "0" && data["status"] != "proses" && data["status"] != "selesai") return "Status antara proses,selesai atau 0";
+
+    final url = Uri.parse('http://localhost:5000/pengaduan/${id}');
+    var request = fetch.MultipartRequest('PUT', url);
+    if(imagePicked != null){
+      request.files.add(
+        fetch.MultipartFile.fromBytes(
+          'foto',
+          Uint8List.fromList(imagePicked!.bytes!),
+          filename: imagePicked!.name!,
+        ),
+      );
+    }
+
+    data.forEach((key, value) {
+      request.fields[key] = value;
+    });
+
+    var response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+    print(responseBody);
+    fileWeb["file"] = "";
+    getData();
     return "success";
   }
 
@@ -82,8 +110,7 @@ class PengaduanController extends GetxController{
     FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
     if(result == null) return false;
     imagePicked = result.files.first;
-    fileWeb = Uint8List.fromList(imagePicked!.bytes!);
-    web.value = true;
+    fileWeb["file"] = Uint8List.fromList(imagePicked!.bytes!);
   }
 
 

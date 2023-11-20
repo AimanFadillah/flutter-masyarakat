@@ -38,6 +38,8 @@ dependencies:
   get:
   http:
   file_picker:
+  dropdown_button2:
+  date_field:
 dev_dependencies:
   flutter_test:
     sdk: flutter

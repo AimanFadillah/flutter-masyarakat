@@ -44,7 +44,7 @@ class BuatPengaduan extends StatelessWidget {
               onChanged: (value) => data["nik"] = value,
             ),
             const SizedBox(height: 20),
-            Obx(() => !pengaduanController.web.value  ?
+            Obx(() => pengaduanController.fileWeb["file"] == ""  ?
               ElevatedButton(
                 onPressed: () {
                   pengaduanController.pickImage();
@@ -54,7 +54,12 @@ class BuatPengaduan extends StatelessWidget {
                 child:const Text("File Image"),
               )
               :
-              Image.memory(pengaduanController.fileWeb!,width: 300),
+              GestureDetector(
+                  onTap: () {
+                    pengaduanController.pickImage();
+                  },
+                  child: Image.memory(pengaduanController.fileWeb["file"]!,width: 300)
+              ),
             ),
             const SizedBox(height: 20),
             ElevatedButton(
